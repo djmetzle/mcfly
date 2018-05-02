@@ -1,4 +1,4 @@
-require_relative "../lib/McFlyConfig.rb"
+require "./lib/McFlyConfig"
 
 describe McFlyConfig do
    describe "#new" do

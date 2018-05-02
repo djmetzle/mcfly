@@ -1,4 +1,4 @@
-require_relative "../lib/DeleteQueue.rb"
+require "./lib/DeleteQueue"
 
 describe "the delete queue" do
    before(:each) do

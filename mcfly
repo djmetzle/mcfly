@@ -1,0 +1,12 @@
+#!/usr/bin/ruby -w
+
+# McFly - McRouter Reliable Delete Stream Replay
+
+$:.unshift File.dirname(__FILE__)
+require('lib/mcfly')
+
+config = McFlyConfig.new "path", "folder"
+
+mcfly = McFly.new config
+
+mcfly.run

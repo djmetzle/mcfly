@@ -1,3 +1,5 @@
+require 'McFlyConfig'
+
 class SuccessLog
    SUCCESS_LOG_NAME = "success.log"
 

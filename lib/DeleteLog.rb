@@ -1,3 +1,5 @@
+require 'McFlyConfig'
+
 class DeleteLog
    def initialize config
       @config = config

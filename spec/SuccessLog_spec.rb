@@ -5,8 +5,8 @@ require 'tmpdir'
 
 describe "SucessLog" do
    before(:each) do
-      @log_directory = Dir.tmpdir 
-      
+      @log_directory = Dir.tmpdir
+
       # clean up an existing delete log
       @success_log_path = "#{@log_directory}/#{SuccessLog::SUCCESS_LOG_NAME}"
       if File.exist? @success_log_path
@@ -20,7 +20,7 @@ describe "SucessLog" do
    describe "#new" do
       context "on initialize" do
          context "unpacks config" do
-            it "exposes the success log filename" do 
+            it "exposes the success log filename" do
                expect(@success_log.get_success_log_filename).to eql @success_log_path
             end
          end

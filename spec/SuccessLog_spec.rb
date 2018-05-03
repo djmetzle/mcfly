@@ -7,7 +7,7 @@ describe "SucessLog" do
    before(:each) do
       @log_directory = Dir.tmpdir
 
-      # clean up an existing delete log
+      # clean up an existing success log
       @success_log_path = "#{@log_directory}/#{SuccessLog::SUCCESS_LOG_NAME}"
       if File.exist? @success_log_path
          File.delete @success_log_path

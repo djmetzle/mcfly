@@ -1,4 +1,4 @@
-# McFly - McRouter Reliable Delete Stream Replay
+# https://travis-ci.com/djmetzle/mcfly.svg?branch=master McFly - McRouter Reliable Delete Stream Replay
 
 McRouter provides a reliable delete stream. This can keep your replication
 pool consistent. The tool Facebook built to replay this stream, however, is

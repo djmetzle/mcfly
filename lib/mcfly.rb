@@ -17,6 +17,6 @@ class McFly
    private
    def startup
       p "Run startup"
-      @log_engine = LogEngine.new @config
+      @log_engine = LogEngine.new @config, @queue
    end
 end

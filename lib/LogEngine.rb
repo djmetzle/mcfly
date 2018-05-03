@@ -1,11 +1,23 @@
+require 'McFlyConfig'
+require 'DeleteQueue'
+require 'SuccessLog'
+require 'DeleteLog'
+
 class LogEngine
-   def initialize config
+   def initialize config, delete_queue
       @config = config
-      @log_directory = config.log_directory
-      @delete_log_name = config.delete_log_name
-      @use_v2_log_format = config.use_v2_log_format
+      @delete_queue = delete_queue
+
+      @success_log = SuccessLog.new config
+      @delete_log = DeleteLog.new config
    end
 
+   def queue_delete_stream
+
+   end
+
+   def mark_success entry
 
 
+   end
 end

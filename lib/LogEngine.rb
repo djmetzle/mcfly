@@ -30,6 +30,6 @@ class LogEngine
    end
 
    def mark_success entry
-      @success_log.append entry
+      @success_log.append entry.entry_str
    end
 end

@@ -4,14 +4,8 @@ class DeleteQueue
       @hashmap = {}
    end
 
-   def next_ip
-      if @last_ip.nil?
-         return @last_ip = @hashmap.keys.first
-      end
-      keys = @hashmap.keys
-      cur_index = keys.index(@last_ip)
-      next_index = (cur_index + 1) % keys.length
-      return @last_ip = keys[next_index]
+   def destinations
+      return @hashmap.reject { |ip, queue| queue.empty? }.keys
    end
 
    def push ip, delete

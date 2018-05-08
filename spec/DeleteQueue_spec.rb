@@ -5,12 +5,28 @@ describe "the delete queue" do
       @queue = DeleteQueue.new
    end
 
+
    context "correct Defaults" do
-      it "has nil next_ip on init" do
-         expect(@queue.next_ip).to be nil
+      it "has empty destinations on init" do
+         expect(@queue.destinations.empty?).to be_truthy
       end
    end
-   
+
+   context "queue keys" do
+      it "returns queued keys" do
+         @queue.push :an_ip, :delete_str
+         @queue.push :another_ip, :delete_str
+         expect(@queue.destinations).to match_array [:an_ip, :another_ip]
+      end
+      it "does not return empty keys" do
+         @queue.push :an_ip, :delete_str
+         @queue.push :another_ip, :delete_str
+         @queue.push :yet_another_ip, :delete_str
+         @queue.pop :yet_another_ip
+         expect(@queue.destinations).to match_array [:an_ip, :another_ip]
+      end
+   end
+
    context "allows queueing deletes for ips" do
       it "allows pushing ips" do
          @queue.push :an_ip, :delete_str
@@ -28,13 +44,4 @@ describe "the delete queue" do
       end
    end
 
-   context "cycles next_ip" do
-      it "queues and cycles ips" do
-         @queue.push :an_ip, :delete_str
-         @queue.push :another_ip, :delete_str
-         expect(@queue.next_ip).to eql :an_ip
-         expect(@queue.next_ip).to eql :another_ip
-         expect(@queue.next_ip).to eql :an_ip
-      end
-   end
 end

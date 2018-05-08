@@ -48,26 +48,39 @@ describe "LogEngine" do
 
    describe "#mark_success" do
       it "adds entry to successlog" do
-         @log_engine.mark_success "a success entry"
+         log_file = File.open(@delete_log_path, "w+")
+         log_file.puts @v2_test_entry_1
+         log_file.puts @v2_test_entry_2
+         log_file.close
+
+         expect{@log_engine.queue_delete_stream}.not_to raise_error
+
+         entry_1 = @delete_queue.peek "[127.0.0.1]:5001"
+         entry_2 = @delete_queue.peek "[1.2.3.4]:11211"
+
+         expect{@log_engine.mark_success entry_1}.not_to raise_error
+         expect{@log_engine.mark_success entry_2}.not_to raise_error
+
          success_log = SuccessLog.new @config
-         expect(success_log.next_line).to eql "a success entry"
+         expect(success_log.next_line).to eql @v2_test_entry_1
+         expect(success_log.next_line).to eql @v2_test_entry_2
       end
    end
 
    describe "correctly queues deletes" do
-         it "returns true if new deletes" do
-            log_file = File.open(@delete_log_path, "w+")
-            log_file.puts @v2_test_entry_1
-            log_file.puts @v2_test_entry_2
-            log_file.close
+      it "returns true if new deletes" do
+         log_file = File.open(@delete_log_path, "w+")
+         log_file.puts @v2_test_entry_1
+         log_file.puts @v2_test_entry_2
+         log_file.close
 
-            expect{@log_engine.queue_delete_stream}.not_to raise_error
+         expect{@log_engine.queue_delete_stream}.not_to raise_error
 
-            entry_1 = @delete_queue.peek "[127.0.0.1]:5001"
-            entry_2 = @delete_queue.peek "[1.2.3.4]:11211"
+         entry_1 = @delete_queue.peek "[127.0.0.1]:5001"
+         entry_2 = @delete_queue.peek "[1.2.3.4]:11211"
 
-            expect(entry_1.entry_str).to eql @v2_test_entry_1
-            expect(entry_2.entry_str).to eql @v2_test_entry_2
-         end
+         expect(entry_1.entry_str).to eql @v2_test_entry_1
+         expect(entry_2.entry_str).to eql @v2_test_entry_2
+      end
    end
 end

@@ -38,7 +38,12 @@ describe "EntryParser" do
       end
 
       context "understands v2 log format" do
-
+         it "has correct destination" do
+            entry = @parser.parse @v2_test_entry_1
+            expect(entry.destination).to eql "[127.0.0.1]:5001"
+            entry = @parser.parse @v2_test_entry_2
+            expect(entry.destination).to eql "[1.2.3.4]:11211"
+         end
       end
 
       context "understands v1 log format" do

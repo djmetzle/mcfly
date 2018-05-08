@@ -22,8 +22,8 @@ class LogEngine
 
       while next_line = @delete_log.next_line
          next_entry = @parser.parse next_line
-         break unless next_entry
-         @delete_queue.push next_entry.destination next_entry
+         break if next_entry.nil?
+         @delete_queue.push next_entry.destination, next_entry
       end
 
       return true

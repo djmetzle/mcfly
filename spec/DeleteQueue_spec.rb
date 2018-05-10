@@ -22,7 +22,7 @@ describe "the delete queue" do
          @queue.push :an_ip, :delete_str
          @queue.push :another_ip, :delete_str
          @queue.push :yet_another_ip, :delete_str
-         @queue.pop :yet_another_ip
+         @queue.shift :yet_another_ip
          expect(@queue.destinations).to match_array [:an_ip, :another_ip]
       end
    end
@@ -35,11 +35,11 @@ describe "the delete queue" do
          @queue.push :an_ip, :delete_str
          expect(@queue.peek :an_ip).to eql :delete_str
       end
-      it "allows popping ips" do
+      it "allows shifting ips" do
          @queue.push :an_ip, :delete_str_1
          @queue.push :an_ip, :delete_str_2
          expect(@queue.peek :an_ip).to eql :delete_str_1
-         @queue.pop :an_ip
+         @queue.shift :an_ip
          expect(@queue.peek :an_ip).to eql :delete_str_2
       end
    end

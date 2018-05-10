@@ -21,7 +21,7 @@ class DeleteQueue
       return @hashmap[ip].first
    end
 
-   def pop ip
+   def shift ip
       @hashmap[ip].shift
       return
    end

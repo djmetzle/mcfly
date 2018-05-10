@@ -17,6 +17,10 @@ class DeleteQueue
       return
    end
 
+   def empty? ip
+      return @hashmap[ip].empty?
+   end
+
    def peek ip
       return @hashmap[ip].first
    end

@@ -5,7 +5,6 @@ describe "the delete queue" do
       @queue = DeleteQueue.new
    end
 
-
    context "correct Defaults" do
       it "has empty destinations on init" do
          expect(@queue.destinations.empty?).to be_truthy
@@ -29,7 +28,16 @@ describe "the delete queue" do
 
    context "allows queueing deletes for ips" do
       it "allows pushing ips" do
+         expect { @queue.push :an_ip, :delete_str }.not_to raise_error
+      end
+      it "allows pushing ips" do
          @queue.push :an_ip, :delete_str
+      end
+      it "knows when a queue is empty" do
+         @queue.push :an_ip, :delete_str
+         expect(@queue.empty? :an_ip).to be_falsey
+         @queue.shift :an_ip
+         expect(@queue.empty? :an_ip).to be_truthy
       end
       it "allows peeking ips" do
          @queue.push :an_ip, :delete_str

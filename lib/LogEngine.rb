@@ -1,7 +1,6 @@
 require 'McFlyConfig'
 require 'DeleteQueue'
-require 'SuccessLog'
-require 'DeleteLog'
+require 'DeleteStream'
 require 'EntryParser'
 
 class LogEngine
@@ -9,27 +8,22 @@ class LogEngine
       @config = config
       @delete_queue = delete_queue
 
-      @success_log = SuccessLog.new config
-      @delete_log = DeleteLog.new config
+      @delete_stream = DeleteStream.new config.delete_stream_directory
 
       @parser = EntryParser.new
    end
 
    def queue_delete_stream
-      if @delete_log.at_end_of_delete_log?
+      unless @delete_stream.messages_available?
          return false
       end
 
-      while next_line = @delete_log.next_line
+      while next_line = @delete_stream.next_line
          next_entry = @parser.parse next_line
-         break if next_entry.nil?
+         break if next_entry.nil? # needed?
          @delete_queue.push next_entry.destination, next_entry
       end
 
       return true
-   end
-
-   def mark_success entry
-      @success_log.append entry.entry_str
    end
 end

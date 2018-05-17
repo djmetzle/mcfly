@@ -1,70 +1,50 @@
-require 'McFlyConfig'
+require 'DeleteLog'
 
-class DeleteLog
-   def initialize delete_stream_directory
-      @delete_directory = delete_directory
-      check_delete_directory 
+class DeleteDirectory
+   def initialize delete_stream_directory, subdirectory
+      @delete_stream_directory = delete_stream_directory
+      @subdirectory = subdirectory
+      @log_files = {}
+      check_directory_exists
+   end
+
+   def messages_available?
+      scan_files
+      return @log_files.any? { |_, delete_log|
+         delete_log.messages_available?
+      }
    end
 
    def next_line
-
-   end
-   
-   def at_end_of_log?
-
+      unread_files = @log_files.select { |_, delete_log|
+         delete_log.messages_available?
+      }.values
+      return nil if unread_files.empty?
+      return unread_files.first.next_line
    end
 
    private
-   def get_sub_directories_list
-      return Dir.glob("#{@delete_directory}/*/") 
+   def scan_files
+      current_files = get_fs_files.sort.map { |file|
+         file.split(File::SEPARATOR).last
+      }
+      new_files = current_files - @log_files.keys
+      new_files.each { |filename|
+         @log_files[filename] = DeleteLog.new File.join(full_path(), filename)
+      }
    end
 
-   def get_latest_directory
-      sub_dirs = get_sub_directories_list
-      return sub_dirs.sort.last
-   end
-
-   def check_delete_directory
-      unless Dir.exist? @delete_directory
-         abort "Delete Stream directory doesn't exist"
+   def check_directory_exists
+      unless Dir.exist? full_path
+         raise "Delete Stream subdirectory doesn't exist"
       end
    end
 
-# OLD
-#   def next_line
-#      @delete_log_file = get_delete_log_file
-#      unless @delete_log_file
-#         return nil
-#      end
-#      line = @delete_log_file.gets
-#      return line ? line.chomp : nil
-#   end
-#
-#   def at_end_of_delete_log?
-#      @delete_log_file = get_delete_log_file
-#      unless @delete_log_file
-#         return true
-#      end
-#      return @delete_log_file.eof?
-#   end
-#
-#   private
-#   def get_delete_log_file
-#      if @delete_log_file
-#         return @delete_log_file
-#      end
-#
-#      begin
-#         return File.open(get_delete_log_path, "r+")
-#      rescue
-#         return nil
-#      end
-#   end
-#
-#   def get_delete_log_path
-#      return "#{@config.log_directory}/#{@config.delete_log_name}"
-#   end
+   def full_path
+      return File.join(@delete_stream_directory, @subdirectory)
+   end
 
-
+   def get_fs_files
+      return Dir.glob(File.join(@delete_stream_directory, @subdirectory, "*"))
+   end
 end
-

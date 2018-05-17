@@ -1,16 +1,24 @@
 require './lib/LogEngine'
 
+require 'helpers'
+
+RSpec.configure do |c|
+  c.include Helpers
+end
+
 describe "LogEngine" do
    before(:each) do
-      @log_directory = Dir.tmpdir
+      @log_directory = Dir.mktmpdir
 
       @delete_queue = DeleteQueue.new
 
       @config = McFlyConfig.new @log_directory
       @log_engine = LogEngine.new @config, @delete_queue
 
-      @v2_test_entry_1 = '["AS2.0",1410611229.747,"C",{"k":"key","p":"A","h":"[127.0.0.1]:5001","f":"5000"}]'
-      @v2_test_entry_2 = '["AS2.0",1234567890.123,"C",{"k":"key","p":"A","h":"[1.2.3.4]:11211","f":"5000"}]'
+   end
+
+   after(:each) do
+      FileUtils.remove_entry_secure @log_directory
    end
 
    describe "#new" do

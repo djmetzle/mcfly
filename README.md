@@ -16,5 +16,4 @@ The directory structure for this is:
 
 > files under the async spool root, organized into hourly directories. Each directory will contain multiple spool files (one per mcrouter process per thread per 15 minutes of log).
 
-![visually](http://yuml.me/diagram/scruffy;dir:LR/class/[Spool Directory]^[Hourly Directory], [Hourly Directory]^[thread-n-file-00], [Hourly Directory]^[thread-n-file-15], [Hourly Directory]^[thread-n-file-30], [Hourly Directory]^[thread-n-file-45],)
-
+![img](http://yuml.me/78064931.png)

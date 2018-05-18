@@ -7,6 +7,15 @@ RSpec.configure do |c|
 end
 
 describe "LogEngine" do
+   def add_entries_to_logs
+      populate_log_directory @log_directory
+      add_to_log_directory @log_directory, "20180102T04-1234567890"
+      add_log_entry @log_directory, "20180102T01-1234567890", "123456789", get_entry(0)
+      add_log_entry @log_directory, "20180102T02-1234567890", "123456789", get_entry(1)
+      add_log_entry @log_directory, "20180102T03-1234567890", "123456789", get_entry(2)
+      add_log_entry @log_directory, "20180102T04-1234567890", "123456789", get_entry(2)
+   end
+
    before(:each) do
       @log_directory = Dir.mktmpdir
 
@@ -33,14 +42,10 @@ describe "LogEngine" do
             expect(@log_engine.queue_delete_stream).to be_falsey
          end
          it "returns true if new deletes" do
-            # STUB
+            expect(@log_engine.queue_delete_stream).to be_falsey
+            add_entries_to_logs
+            expect(@log_engine.queue_delete_stream).to be_truthy
          end
-      end
-   end
-
-   describe "correctly queues deletes" do
-      it "returns true if new deletes" do
-       # stub
       end
    end
 end

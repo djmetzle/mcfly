@@ -5,7 +5,9 @@
 $:.unshift File.dirname(__FILE__)
 require('lib/mcfly')
 
-config = McFlyConfig.new "path", "folder"
+path = ARGV.first
+
+config = McFlyConfig.new path
 
 mcfly = McFly.new config
 

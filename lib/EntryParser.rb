@@ -22,6 +22,16 @@ class EntryParser
       return parse_entry version, json_object, entry
    end
 
+   def self.deserialize_destination destination_string
+      dest_matches = destination_string.match(/^\[(\S+)\]:(\d+)$/)
+      return nil unless dest_matches
+
+      dest_host, dest_port = dest_matches.captures
+      return nil unless dest_host and dest_port
+
+      return "#{dest_host}:#{dest_port}"
+   end
+
    private
    def json_parse_entry entry_str
       begin

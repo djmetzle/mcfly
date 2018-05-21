@@ -64,4 +64,14 @@ describe "EntryParser" do
       end
    end
 
+   describe "#deserialize_destination" do
+      it "converts the serialized host format" do
+         expect(EntryParser.deserialize_destination "[host]:123").to eql "host:123"
+      end
+
+      it "fails on bad format" do
+         expect(EntryParser.deserialize_destination "host:123").to be_nil
+         expect(EntryParser.deserialize_destination "123:[host]").to be_nil
+      end
+   end
 end

@@ -8,11 +8,8 @@ class DeleteQueue
    end
 
    def push ip, delete
-      if @hashmap.key?(ip)
-         @hashmap[ip].push delete
-         return
-      end
-      @hashmap[ip] = [ delete ]
+      @hashmap[ip] ||= []
+      @hashmap[ip].push delete
       return
    end
 

@@ -24,7 +24,15 @@ class DeleteIssuer
    end
 
    def drain_queue destination, connection
+      loop do
+         next_entry = @delete_queue.peek destination
+         break unless next_entry
 
+         success = connection.delete_key next_entry.key
+         @delete_queue.shift destination if success
+
+         break unless success
+      end
       return
    end
 end

@@ -20,19 +20,19 @@ describe "McFly" do
       @log_directory = Dir.mktmpdir
 
       config = McFlyConfig.new @log_directory
-      @mcfly = McFly.new config
+      @mcfly = McFly.new config, 'TestMemcachedConnector'
    end
 
 	describe "#new" do
       describe "accepts config"
       config = McFlyConfig.new @log_directory
-      @mcfly = McFly.new config
+      @mcfly = McFly.new config, 'TestMemcachedConnector'
 	end
 
 	describe "#run" do
       it do
          add_entries_to_logs
-         expect{ @mcfly.run }.not_to raise_error
+         expect{ @mcfly.run true }.not_to raise_error
       end
 	end
 end

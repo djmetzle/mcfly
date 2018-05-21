@@ -4,9 +4,9 @@ require 'EntryParser'
 class DeleteIssuer
    def initialize delete_queue, connector_class
       @delete_queue = delete_queue
-      @connector_class = eval(connector_class)
 
       require connector_class
+      @connector_class = eval(connector_class)
    end
 
    def flush_queues

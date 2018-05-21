@@ -1,8 +1,14 @@
 require 'DeleteQueue'
 
 class DeleteIssuer
-   def initialize delete_queue, log_engine
+   def initialize delete_queue, connector_class
       @delete_queue = delete_queue
-      @log_engine = log_engine
+      @connector_class = connector_class
+
+      require @connector_class
+   end
+
+   def flush_queue
+
    end
 end

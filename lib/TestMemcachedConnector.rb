@@ -8,7 +8,7 @@ class TestMemcachedConnector
    end
 
    def delete_key key
-     return @will_delete
+      return @will_delete
    end
 
    # Behavior toggles for testing

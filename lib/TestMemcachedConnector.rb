@@ -1,30 +1,33 @@
 class TestMemcachedConnector
-   def initialize
+   @@will_connect_setting = true
+   @@will_delete_setting = true
 
-   end
-
-   def connect destination
-      set_defaults
+   def self.connect destination
       @destination = destination
-      return @will_connect
+      return @@will_connect_setting ? self.new : nil
    end
 
-   def delete key
+   def delete_key key
      return @will_delete
    end
 
    # Behavior toggles for testing
-   def set_will_connect will_connect
-      @will_connect = will_connect
+   def self.set_will_connect will_connect
+      @@will_connect_setting = will_connect
    end
 
-   def set_will_delete will_delete
-      @will_delete = will_delete
+   def self.set_will_delete will_delete
+      @@will_delete_setting = will_delete
    end
 
    private
+   # use the factory method please
+   def initialize
+      set_defaults
+   end
+
    def set_defaults
-      @will_connect = true
-      @will_delete = true
+      @will_connect = @@will_connect_setting
+      @will_delete = @@will_delete_setting
    end
 end

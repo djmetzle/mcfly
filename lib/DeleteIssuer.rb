@@ -1,4 +1,5 @@
 require 'DeleteQueue'
+require 'EntryParser'
 
 class DeleteIssuer
    def initialize delete_queue, connector_class

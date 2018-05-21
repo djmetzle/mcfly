@@ -10,7 +10,7 @@ describe "DeleteIssuer" do
 
    describe ".flush_queue" do
       it "succeeds when the queue is empty" do
-         expect { @issuer.flush_queue }.not_to raise_error
+         expect { @issuer.flush_queues }.not_to raise_error
       end
    end
 end

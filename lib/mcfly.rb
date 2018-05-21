@@ -18,5 +18,6 @@ class McFly
    def startup
       p "Run startup"
       @log_engine = LogEngine.new @config, @queue
+      @log_engine.queue_delete_stream
    end
 end

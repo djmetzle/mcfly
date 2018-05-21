@@ -3,6 +3,8 @@ require './lib/TestMemcachedConnector'
 describe "TestMemcachedConnector" do
    describe "#connect" do
       it "connects by default" do
+         TestMemcachedConnector.set_will_connect true
+         TestMemcachedConnector.set_will_delete  true
          expect(TestMemcachedConnector.connect "localhost:12345").to be_an_instance_of(TestMemcachedConnector)
       end
 

@@ -1,6 +1,5 @@
 class DeleteQueue
    def initialize
-      @last_ip = nil
       @hashmap = {}
    end
 

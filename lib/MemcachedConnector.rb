@@ -23,8 +23,15 @@ class MemcachedConnector
    end
 
    def self.get_connection destination
+      options = {
+         :show_backtraces => false,
+         :no_block => false,
+         :buffer_requests => false,
+         :noreply => false,
+         :binary_protocol => false
+      }
       begin
-         connection = Memcached.new destination
+         connection = Memcached.new destination, options
          # force the lazy connect
          return nil unless connection.stats
          return connection

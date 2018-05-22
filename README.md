@@ -18,8 +18,10 @@ The directory structure for this is:
 
 ![img](http://yuml.me/78064931.png)
 
-McFly ingests the McRouter delete logs into a queue.
-This queue is a hash of FIFOs kept in memory.
+
+#### DeleteQueue
+McFly ingests the McRouter delete logs into the `DeleteQueue`.
+This `DeleteQueue` is a hash of FIFOs kept in memory.
 The hash is keyed by destination (the "host" field in the delete record).
 Each record in the FIFO is a `delete` for a key that has yet to be issued.
 

@@ -8,14 +8,16 @@ This is a service to replay the asynchronous delete stream from
 McRouter to downstream replication nodes.
 
 ### How it Works
+---
 
 From the bird's eye perspective, McFly listens to the McRouter async delete logs, queues them for replay.
 When a destination host comes back online, McFly re-issues the queued deletes to the destination host.
+Each tick of the main loop, McFly looks for new log entries and tries to replay the currently queued entries.
 
-![img](http://yuml.me/4c79152a.png)
-<!-- http://yuml.me/diagram/scruffy;dir:LR/class/edit/[DeleteStream]->[DeleteQueue{bg:blue}], [Async Log Files{bg:lightyellow}]-.->[DeleteStream], [DeleteQueue]->[DeleteIssuer], [DeleteIssuer]-.-^[Destination Hosts{bg:green}] -->
+![img](http://yuml.me/21ba8195.png)
+<!-- http://yuml.me/diagram/scruffy;dir:LR/class/edit/[DeleteStream]->[DeleteQueue{bg:lightblue}], [Async Log Files{bg:lightyellow}]-.->[DeleteStream], [DeleteQueue]->[DeleteIssuer], [DeleteIssuer]-.-^[Destination Hosts{bg:palegreen}] -->
 
-#### DeleteStream
+#### The DeleteStream
 [McRouter](https://github.com/facebook/mcrouter) sends all failed `delete` commands to an "Async Delete Spool".
 Read about that [here](https://github.com/facebook/mcrouter/wiki/Features#reliable-delete-stream).
 
@@ -23,12 +25,13 @@ The directory structure for this is:
 
 > files under the async spool root, organized into hourly directories. Each directory will contain multiple spool files (one per mcrouter process per thread per 15 minutes of log).
 
-The `DeleteStream` walks these files. When new data is found, the new entries are queued for replay later.
+The `DeleteStream` walks these files.
+When new data is found, the new entries are queued for replay later.
 
 ![img](http://yuml.me/78064931.png)
 
 
-#### DeleteQueue
+#### The DeleteQueue
 McFly ingests the McRouter delete logs into the `DeleteQueue`.
 This `DeleteQueue` is a hash of FIFOs kept in memory.
 The hash is keyed by destination (the "host" field in the delete record).
@@ -37,9 +40,9 @@ Each record in the FIFO is a `delete` for a key that has yet to be issued.
 ![img](http://yuml.me/e44da816.png)
 <!-- https://yuml.me/diagram/scruffy;dir:LR/class/edit/[DeleteQueue],[DeleteQueue]->[Destination%20c],[Destination%20C]->[Delete%20FIFO%20C],[DeleteQueue]->[Destination%20B],[Destination%20B]->[Delet%20e%20FIFO%20B],[DeleteQueue]->[Destination%20A],[Destination%20A]->[Delete%20FIFO%20A] -->
 
-#### DeleteIssuer
-The queue is drained by the `DeleteIssuer`.
-The `DeleteIssuer` attempts to connect every destination with queued deletes.
+#### The DeleteIssuer
+The `DeleteQueue` is drained by the `DeleteIssuer`.
+The `DeleteIssuer` attempts to connect to every destination with queued deletes.
 The standard case is that the `DeleteIssuer` will not be able connect to the destination.
 If the `DeleteIssuer` can connect, however, it replays the queued deletes to the destination host.
 

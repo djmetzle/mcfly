@@ -3,7 +3,6 @@
 McRouter provides a reliable delete stream.
 This can keep your replication pool consistent.
 The tool Facebook built to replay this stream, however, is not open-source.
-
 This is a service to replay the asynchronous delete stream from
 McRouter to downstream replication nodes.
 
@@ -14,7 +13,7 @@ McRouter to downstream replication nodes.
 [Replication](https://github.com/facebook/mcrouter/wiki/Replicated-pools-setup) and [Sharding](https://github.com/facebook/mcrouter/wiki/Sharded-pools-setup) facilities allow Memcached to become Highly-Available and scalable.
 
 Availability and consitency are achieved by McRouter's [Reliable Delete Stream](https://github.com/facebook/mcrouter/wiki/Features#reliable-delete-stream).
-By logging and replaying deletes, we can ensure that Memcached instances are kept consistent across a replica set.
+By logging and replaying deletes, we can ensure that downstream Memcached instances are kept consistent across a replica set.
 This "async spool" is streamed from McRouter to a directory of directories containing log files.
 
 The tooling Facebook developed to replay this async stream has not been open-sourced.

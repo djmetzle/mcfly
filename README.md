@@ -1,13 +1,39 @@
 # [![Build Status](https://travis-ci.com/djmetzle/mcfly.svg?branch=master)](https://travis-ci.com/djmetzle/mcfly) McFly - McRouter Reliable Delete Stream Replay
 
-McRouter provides a reliable delete stream. This can keep your replication
-pool consistent. The tool Facebook built to replay this stream, however, is
-not open-source.
+McRouter provides a reliable delete stream.
+This can keep your replication pool consistent.
+The tool Facebook built to replay this stream, however, is not open-source.
 
 This is a service to replay the asynchronous delete stream from
 McRouter to downstream replication nodes.
 
-### How it Works
+### Background
+
+[McRouter](https://github.com/facebook/mcrouter) a tool that allows complex routing of Memcached requests.
+[Replication](https://github.com/facebook/mcrouter/wiki/Replicated-pools-setup) and [Sharding](https://github.com/facebook/mcrouter/wiki/Sharded-pools-setup) facilities allow Memcached to become Highly-Available and scalable.
+
+Availability and consitency are achieved by McRouter's [Reliable Delete Stream](https://github.com/facebook/mcrouter/wiki/Features#reliable-delete-stream).
+By logging and replaying deletes, we can ensure that Memcached instances are kept consistent across a replica set.
+This "async spool" is streamed from McRouter to a directory of directories containing log files.
+
+The tooling Facebook developed to replay this async stream has not been open-sourced.
+To fill the gap, we have developed a simple replay implementation for this delete stream.
+
+### How to use McFly
+
+Point McFly at a McRouter "async spool" and go!
+
+```shell
+$ ./mcfly /var/spool/mcrouter
+```
+
+Run McFly in a Docker container!
+```shell
+$ docker build .
+$ docker run -v /var/spool/mcrouter:/var/spool/mcrouter mcfly
+```
+
+### How McFly Works
 ---
 
 From the bird's eye perspective, McFly listens to the McRouter async delete logs, queues them for replay.
@@ -18,14 +44,30 @@ Each tick of the main loop, McFly looks for new log entries and tries to replay 
 <!-- http://yuml.me/diagram/scruffy;dir:LR/class/edit/[DeleteStream]->[DeleteQueue{bg:lightblue}], [Async Log Files{bg:lightyellow}]-.->[DeleteStream], [DeleteQueue]->[DeleteIssuer], [DeleteIssuer]-.-^[Destination Hosts{bg:palegreen}] -->
 
 #### The DeleteStream
-[McRouter](https://github.com/facebook/mcrouter) sends all failed `delete` commands to an "Async Delete Spool".
+McRouter sends all failed `delete` commands to the "async spool".
 Read about that [here](https://github.com/facebook/mcrouter/wiki/Features#reliable-delete-stream).
 
 The directory structure for this is:
 
-> files under the async spool root, organized into hourly directories. Each directory will contain multiple spool files (one per mcrouter process per thread per 15 minutes of log).
+> The log is written into files under the async spool root, organized into hourly directories.
+> Each directory will contain multiple spool files (one per mcrouter process per thread per 15 minutes of log).
 
-The `DeleteStream` walks these files.
+The entries in these log files contain the host that failed to accept the delete, and the key from that command.
+
+An example (v2) log entry:
+```
+["AS2.0",1410611229.747,"C",{"k":"key","p":"A","h":"[127.0.0.1]:5001","f":"5000"}]
+```
+
+```
+[version (always "AS2.0"), timestamp, command (always "C"),
+  {"k": key,
+   "p": pool name,
+   "h": "[destination host]:destination port",
+   "f": "mcrouter port or instance name"}]
+```
+
+The `DeleteStream` walks these files, looking for new entries.
 When new data is found, the new entries are queued for replay later.
 
 ![img](http://yuml.me/78064931.png)
@@ -48,3 +90,10 @@ If the `DeleteIssuer` can connect, however, it replays the queued deletes to the
 
 ![img](http://yuml.me/44b8e39a.png)
 <!-- http://yuml.me/diagram/scruffy/class/edit/[Delete FIFO{bg:lightyellow}]-.-^[DeleteIssuer],[DeleteIssuer]->[MemcachedConnector],[MemcachedConnector]-.-^[Destination Host{bg:green}] -->
+
+### Caveats
+---
+This solution is not general purpose, and makes a few strong assumptions:
+- The queue will be short, and fit in memory.
+- Historical (unneeded) log entries will be removed by the operator.
+- Deletes can consistently be replayed directly back to the downstream memcached instances.

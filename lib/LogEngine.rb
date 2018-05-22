@@ -23,7 +23,7 @@ class LogEngine
          break if next_entry.nil? # needed?
          @delete_queue.push next_entry.destination, next_entry
       end
-      puts "#{Time.now.to_f}: Found new delete log entries!"
+      DebugLog.log_new_deletes
       return true
    end
 end

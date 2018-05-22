@@ -20,7 +20,7 @@ class McFly
          did_work ||= @log_engine.queue_delete_stream
          did_work ||= @issuer.flush_queues
          break if one_time
-         sleep 1 unless did_work
+         sleep 0.1 unless did_work
       end
    end
 

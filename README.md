@@ -98,3 +98,9 @@ This solution is not general purpose, and makes a few strong assumptions:
 - The queue will be short, and fit in memory.
 - Historical (unneeded) log entries will be removed by the operator.
 - Deletes can consistently be replayed directly back to the downstream memcached instances.
+
+### License
+---
+GPL v3.0.
+
+https://github.com/djmetzle/mcfly/blob/master/LICENSE

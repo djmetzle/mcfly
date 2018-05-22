@@ -3,12 +3,13 @@ require 'memcached'
 class MemcachedConnector
    def self.connect destination
       connection = self.get_connection destination  
-      return connection ? self.new(connection) : nil
+      return connection ? self.new(connection, destination) : nil
    end
 
    def delete_key key
       begin
          @connection.delete key
+         puts "#{Time.now.to_f}: Deleted key '#{key}' from '#{@destination}'"
          return true
       rescue Memcached::NotFound
          return true
@@ -18,8 +19,9 @@ class MemcachedConnector
    end
 
    private
-   def initialize connection 
+   def initialize connection, destination
       @connection = connection
+      @destination = destination
    end
 
    def self.get_connection destination

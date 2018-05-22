@@ -1,3 +1,5 @@
+require 'DebugLog'
+
 class McFlyConfig
    attr_reader :delete_stream_directory
    attr_reader :use_v2_log_format

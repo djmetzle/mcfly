@@ -1,3 +1,4 @@
+require 'McFlyConfig'
 require 'memcached'
 
 class MemcachedConnector
@@ -9,10 +10,10 @@ class MemcachedConnector
    def delete_key key
       begin
          @connection.delete key
-         puts "#{Time.now.to_f}: Deleted key '#{key}' from '#{@destination}'"
+         DebugLog.log_delete key, @destination, :NotFound
          return true
       rescue Memcached::NotFound
-         puts "#{Time.now.to_f}: NotFound key '#{key}' from '#{@destination}'"
+         DebugLog.log_delete key, @destination, :Deleted
          return true
       rescue
          return false

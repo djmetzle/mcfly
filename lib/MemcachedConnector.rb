@@ -12,6 +12,7 @@ class MemcachedConnector
          puts "#{Time.now.to_f}: Deleted key '#{key}' from '#{@destination}'"
          return true
       rescue Memcached::NotFound
+         puts "#{Time.now.to_f}: NotFoundd key '#{key}' from '#{@destination}'"
          return true
       rescue
          return false

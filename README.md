@@ -8,6 +8,7 @@ This is a service to replay the asynchronous delete stream from
 McRouter to downstream replication nodes.
 
 ### Background
+---
 
 [McRouter](https://github.com/facebook/mcrouter) a tool that allows complex routing of Memcached requests.
 [Replication](https://github.com/facebook/mcrouter/wiki/Replicated-pools-setup) and [Sharding](https://github.com/facebook/mcrouter/wiki/Sharded-pools-setup) facilities allow Memcached to become Highly-Available and scalable.
@@ -20,6 +21,7 @@ The tooling Facebook developed to replay this async stream has not been open-sou
 To fill the gap, we have developed a simple replay implementation for this delete stream.
 
 ### How to use McFly
+---
 
 Point McFly at a McRouter "async spool" and go!
 

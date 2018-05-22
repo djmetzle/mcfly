@@ -9,12 +9,21 @@ McRouter to downstream replication nodes.
 
 ### How it Works
 
+From the bird's eye perspective, McFly listens to the McRouter async delete logs, queues them for replay.
+When a destination host comes back online, McFly re-issues the queued deletes to the destination host.
+
+![img](http://yuml.me/4c79152a.png)
+<!-- http://yuml.me/diagram/scruffy;dir:LR/class/edit/[DeleteStream]->[DeleteQueue{bg:blue}], [Async Log Files{bg:lightyellow}]-.->[DeleteStream], [DeleteQueue]->[DeleteIssuer], [DeleteIssuer]-.-^[Destination Hosts{bg:green}] -->
+
+#### DeleteStream
 [McRouter](https://github.com/facebook/mcrouter) sends all failed `delete` commands to an "Async Delete Spool".
 Read about that [here](https://github.com/facebook/mcrouter/wiki/Features#reliable-delete-stream).
 
 The directory structure for this is:
 
 > files under the async spool root, organized into hourly directories. Each directory will contain multiple spool files (one per mcrouter process per thread per 15 minutes of log).
+
+The `DeleteStream` walks these files. When new data is found, the new entries are queued for replay later.
 
 ![img](http://yuml.me/78064931.png)
 

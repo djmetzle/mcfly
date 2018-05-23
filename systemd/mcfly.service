@@ -19,8 +19,11 @@ ProtectControlGroups=true
 RestrictRealtime=true
 RestrictNamespaces=true
 
+Restart=always
+
 Environment=SPOOL_DIR=/var/spool/mcrouter
 WorkingDirectory=/opt/mcfly
+
 ExecStart=/opt/mcfly/mcfly ${SPOOL_DIR}
 
 [Install]

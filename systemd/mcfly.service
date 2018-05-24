@@ -1,0 +1,30 @@
+[Unit]
+Description=McFly McRouter reliable delete stream replay
+
+Wants=mcrouter.service
+After=network.target
+
+Type=simple
+
+[Service]
+# Safe defaults
+PrivateTmp=true
+ProtectSystem=full
+NoNewPrivileges=true
+PrivateDevices=true
+MemoryDenyWriteExecute=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictRealtime=true
+RestrictNamespaces=true
+
+Restart=always
+
+Environment=SPOOL_DIR=/var/spool/mcrouter
+WorkingDirectory=/opt/mcfly
+
+ExecStart=/opt/mcfly/mcfly ${SPOOL_DIR}
+
+[Install]
+WantedBy=multi-user.target

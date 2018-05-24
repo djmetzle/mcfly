@@ -30,7 +30,7 @@ $ ./mcfly /var/spool/mcrouter
 
 Run McFly in a Docker container!
 ```shell
-$ docker build .
+$ docker build . -t mcfly
 $ docker run -v /var/spool/mcrouter:/var/spool/mcrouter mcfly
 ```
 

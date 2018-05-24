@@ -1,7 +1,8 @@
 source "https://rubygems.org"
 
-gem "memcached"
+gem "json", require: true
+gem "memcached", require: true
 
-gem "rspec"
-gem 'guard-rspec', require: false
+gem "rspec", require: false, group: :test
+gem 'guard-rspec', require: false, group: :test
 gem 'simplecov', require: false, group: :test

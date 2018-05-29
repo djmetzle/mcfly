@@ -4,7 +4,6 @@ Description=McFly McRouter reliable delete stream replay
 Wants=mcrouter.service
 After=network.target
 
-Type=simple
 
 [Service]
 # Safe defaults
@@ -19,6 +18,7 @@ ProtectControlGroups=true
 RestrictRealtime=true
 RestrictNamespaces=true
 
+Type=simple
 Restart=always
 
 Environment=SPOOL_DIR=/var/spool/mcrouter

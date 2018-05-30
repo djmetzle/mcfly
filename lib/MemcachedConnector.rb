@@ -26,7 +26,7 @@ class MemcachedConnector
       @destination = destination
    end
 
-   def self.get_connection destination
+   private_class_method def self.get_connection destination
       options = {
          :show_backtraces => false,
          :no_block => false,

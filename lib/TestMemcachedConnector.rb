@@ -7,7 +7,7 @@ class TestMemcachedConnector
       return @@will_connect_setting ? self.new : nil
    end
 
-   def delete_key key
+   def delete_key _
       return @will_delete
    end
 

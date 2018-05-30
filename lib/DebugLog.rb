@@ -24,7 +24,7 @@ class DebugLog
 
       def log_delete key, destination, found
          if should_log? :notice
-            puts "Key '#{key}' #{found.to_s} from '#{destination}'"
+            puts "Key '#{key}' #{found} from '#{destination}'"
          end
       end
 

@@ -20,13 +20,7 @@ class MemcachedConnector
       end
    end
 
-   private
-   def initialize connection, destination
-      @connection = connection
-      @destination = destination
-   end
-
-   private_class_method def self.get_connection destination
+   def self.get_connection destination
       options = {
          :show_backtraces => false,
          :no_block => false,
@@ -42,5 +36,11 @@ class MemcachedConnector
       rescue
          return nil
       end
+   end
+
+   private
+   def initialize connection, destination
+      @connection = connection
+      @destination = destination
    end
 end

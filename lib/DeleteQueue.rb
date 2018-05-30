@@ -4,7 +4,7 @@ class DeleteQueue
    end
 
    def destinations
-      return @hashmap.reject { |ip, queue| queue.empty? }.keys
+      return @hashmap.reject { |_, queue| queue.empty? }.keys
    end
 
    def push ip, delete

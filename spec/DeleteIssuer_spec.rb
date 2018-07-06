@@ -8,12 +8,10 @@ RSpec.configure do |c|
   c.include Helpers
 end
 
-TEST_CONNECTOR = "TestMemcachedConnector"
-
 describe "DeleteIssuer" do
    before(:each) do
       @queue = DeleteQueue.new
-      @issuer = DeleteIssuer.new @queue, TEST_CONNECTOR
+      @issuer = DeleteIssuer.new @queue, TestMemcachedConnector
    end
 
    describe ".flush_queue" do
@@ -23,8 +21,8 @@ describe "DeleteIssuer" do
 
       it "succeeds when the queue is not empty" do
          # use default test connector settings
-         eval(TEST_CONNECTOR).set_will_connect true
-         eval(TEST_CONNECTOR).set_will_delete true
+         TestMemcachedConnector.set_will_connect true
+         TestMemcachedConnector.set_will_delete true
 
          destination = 'localhost:11211'
          parser = EntryParser.new

@@ -20,13 +20,13 @@ describe "McFly" do
       @log_directory = Dir.mktmpdir
 
       config = McFlyConfig.new @log_directory
-      @mcfly = McFly.new config, 'TestMemcachedConnector'
+      @mcfly = McFly.new config, TestMemcachedConnector
    end
 
 	describe "#new" do
       describe "accepts config"
       config = McFlyConfig.new @log_directory
-      @mcfly = McFly.new config, 'TestMemcachedConnector'
+      @mcfly = McFly.new config, TestMemcachedConnector
 	end
 
 	describe "#run" do

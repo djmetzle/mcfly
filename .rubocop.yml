@@ -4,3 +4,6 @@ AllCops:
 
 Layout/IndentationWidth:
   Width: 3
+
+Style/RedundantReturn:
+  Enabled: false

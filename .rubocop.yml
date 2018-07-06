@@ -17,3 +17,6 @@ Naming/AccessorMethodName:
 
 Style/SymbolArray:
   EnforcedStyle: brackets
+
+Style/Documentation:
+  Enabled: false

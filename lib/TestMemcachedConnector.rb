@@ -4,7 +4,7 @@ class TestMemcachedConnector
 
    def self.connect(destination)
       @destination = destination
-      return @@will_connect_setting ? self.new : nil
+      return @@will_connect_setting ? new : nil
    end
 
    def delete_key(_)

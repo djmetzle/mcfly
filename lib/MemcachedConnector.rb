@@ -3,8 +3,8 @@ require 'memcached'
 
 class MemcachedConnector
    def self.connect(destination)
-      connection = self.get_connection destination  
-      return connection ? self.new(connection, destination) : nil
+      connection = get_connection destination
+      return connection ? new(connection, destination) : nil
    end
 
    def delete_key(key)

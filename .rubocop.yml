@@ -3,6 +3,9 @@ AllCops:
     - 'spec/*.rb'
     - 'Guardfile'
 
+Bundler/OrderedGems:
+  Enabled: False
+
 Layout/IndentationWidth:
   Width: 3
 

@@ -4,8 +4,8 @@ require 'json'
 
 class EntryParser
    FORMAT_LOOKUP = {
-      "AS1.0" => 1,
-      "AS2.0" => 2,
+      'AS1.0' => 1,
+      'AS2.0' => 2,
    }
 
    def parse entry
@@ -14,7 +14,7 @@ class EntryParser
       end
       json_object = json_parse_entry entry
       unless json_object
-         raise RuntimeError, "Bad JSON Entry provided"
+         raise RuntimeError, 'Bad JSON Entry provided'
       end
 
       version = get_log_version json_object
@@ -43,14 +43,14 @@ class EntryParser
 
    def get_log_version json_object
       unless json_object.is_a? Array
-         raise RuntimeError, "Bad JSON Entry provided"
+         raise RuntimeError, 'Bad JSON Entry provided'
       end
       version_str = json_object[0]
       unless version_str
-         raise RuntimeError, "Bad JSON Entry provided"
+         raise RuntimeError, 'Bad JSON Entry provided'
       end
       unless FORMAT_LOOKUP.has_key? version_str
-         raise RuntimeError, "Bad JSON Entry provided"
+         raise RuntimeError, 'Bad JSON Entry provided'
       end
 
       return FORMAT_LOOKUP[version_str]
@@ -69,10 +69,10 @@ class EntryParser
    def parse_v2_entry json_object, entry_str
       entry_obj = json_object[3]
 
-      entry_key = entry_obj["k"]
-      entry_pool = entry_obj["p"]
-      destination = entry_obj["h"]
-      mcrouter_port = entry_obj["f"]
+      entry_key = entry_obj['k']
+      entry_pool = entry_obj['p']
+      destination = entry_obj['h']
+      mcrouter_port = entry_obj['f']
 
       return Entry.new(entry_str: entry_str,
                        entry_key: entry_key,

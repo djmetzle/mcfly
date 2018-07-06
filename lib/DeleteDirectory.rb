@@ -36,7 +36,7 @@ class DeleteDirectory
 
    def check_directory_exists
       unless Dir.exist? full_path
-         raise "Delete Stream subdirectory doesn't exist"
+         raise 'Delete Stream subdirectory does not exist'
       end
    end
 
@@ -45,6 +45,6 @@ class DeleteDirectory
    end
 
    def get_fs_files
-      return Dir.glob(File.join(@delete_stream_directory, @subdirectory, "*"))
+      return Dir.glob(File.join(@delete_stream_directory, @subdirectory, '*'))
    end
 end

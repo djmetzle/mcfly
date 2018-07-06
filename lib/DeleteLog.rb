@@ -23,12 +23,12 @@ class DeleteLog
    private
    def check_file_exists
       unless File.exist? @filepath
-         raise "DeleteLog file doesn't exist"
+         raise 'DeleteLog file does not exist'
       end
    end
 
    def open_fd
       # STUB
-      @fd = open(@filepath, "r")
+      @fd = open(@filepath, 'r')
    end
 end

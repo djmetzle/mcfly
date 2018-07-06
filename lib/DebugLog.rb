@@ -12,13 +12,13 @@ class DebugLog
 
       def log_start
          if should_log? :notice
-            puts "Start McFly"
+            puts 'Start McFly'
          end
       end
 
       def log_new_deletes
          if should_log? :notice
-            puts "Found new delete log entries!"
+            puts 'Found new delete log entries!'
          end
       end
 

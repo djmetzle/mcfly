@@ -35,12 +35,12 @@ class DeleteStream
    end
 
    def get_fs_subdirectories
-      return Dir.glob(File.join(@delete_stream_directory, "*/"))
+      return Dir.glob(File.join(@delete_stream_directory, '*/'))
    end
 
    def check_directory_exists
       unless Dir.exist? @delete_stream_directory
-         raise "Delete Stream directory doesn't exist"
+         raise 'Delete Stream directory does not exist'
       end
    end
 end

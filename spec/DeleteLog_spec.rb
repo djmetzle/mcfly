@@ -32,7 +32,7 @@ describe "DeleteDirectory" do
 
          expect {
             DeleteLog.new full_path
-         }.to raise_error(RuntimeError, "DeleteLog file doesn't exist")
+         }.to raise_error(RuntimeError, "DeleteLog file does not exist")
 
          # create the file
          add_log_entry @delete_stream_directory, @subdirectory, filename, get_entry(1)

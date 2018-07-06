@@ -20,7 +20,7 @@ describe "DeleteStream" do
       it "fails if directory does not exist" do
          expect {
             DeleteStream.new "/WHARGARL"
-         }.to raise_error(RuntimeError, "Delete Stream directory doesn't exist")
+         }.to raise_error(RuntimeError, "Delete Stream directory does not exist")
          expect(
             DeleteStream.new @log_directory
          ).to be_an_instance_of(DeleteStream)

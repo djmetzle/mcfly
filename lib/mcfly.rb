@@ -3,11 +3,12 @@ require('McFlyConfig')
 require('DeleteQueue')
 require('LogEngine')
 require('DeleteIssuer')
+require('MemcachedConnector')
 
 class McFly
    attr_reader :config, :log_engine, :queue, :issuer
 
-   def initialize(mcfly_config, connector_class = 'MemcachedConnector')
+   def initialize(mcfly_config, connector_class = MemcachedConnector)
       @config = mcfly_config
       @queue = DeleteQueue.new
       @connector_class = connector_class

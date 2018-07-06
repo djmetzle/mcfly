@@ -48,7 +48,7 @@ class EntryParser
       version_str = json_object[0]
 
       raise RuntimeError, 'Bad JSON Entry provided' unless version_str
-      unless FORMAT_LOOKUP.has_key? version_str
+      unless FORMAT_LOOKUP.key? version_str
          raise RuntimeError, 'Bad JSON Entry provided'
       end
 

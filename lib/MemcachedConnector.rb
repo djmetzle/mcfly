@@ -14,7 +14,8 @@ class MemcachedConnector
    rescue Memcached::NotFound
       DebugLog.log_delete key, @destination, :Deleted
       return true
-   rescue
+   # The only untested line in the program! Something awful happened!
+   rescue # # rubocop:disable Style/RescueStandardError
       return false
    end
 
@@ -31,7 +32,8 @@ class MemcachedConnector
          # force the lazy connect
          return nil unless connection.stats
          return connection
-      rescue
+      # We expect the connection to Memcached to fail most of the time.
+      rescue # # rubocop:disable Style/RescueStandardError
          return nil
       end
    end

@@ -34,7 +34,7 @@ class EntryParser
 
    def json_parse_entry(entry_str)
       return JSON.parse entry_str
-   rescue
+   rescue JSON::ParserError
       return nil
    end
 

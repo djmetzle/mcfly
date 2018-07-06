@@ -25,7 +25,7 @@ class DeleteStream
    private
 
    def update_subdirectories
-      current_directories = get_fs_subdirectories.sort.map do |subdir|
+      current_directories = collect_fs_subdirectories.sort.map do |subdir|
          subdir.split(File::SEPARATOR).last
       end
       new_directories = current_directories - @subdirectories.keys
@@ -35,7 +35,7 @@ class DeleteStream
       end
    end
 
-   def get_fs_subdirectories
+   def collect_fs_subdirectories
       return Dir.glob(File.join(@delete_stream_directory, '*/'))
    end
 

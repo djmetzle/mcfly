@@ -11,3 +11,6 @@ Style/RedundantReturn:
 
 Style/ClassVars:
   Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false

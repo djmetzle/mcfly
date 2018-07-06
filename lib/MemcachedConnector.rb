@@ -8,16 +8,14 @@ class MemcachedConnector
    end
 
    def delete_key(key)
-      begin
-         @connection.delete key
-         DebugLog.log_delete key, @destination, :NotFound
-         return true
-      rescue Memcached::NotFound
-         DebugLog.log_delete key, @destination, :Deleted
-         return true
-      rescue
-         return false
-      end
+      @connection.delete key
+      DebugLog.log_delete key, @destination, :NotFound
+      return true
+   rescue Memcached::NotFound
+      DebugLog.log_delete key, @destination, :Deleted
+      return true
+   rescue
+      return false
    end
 
    def self.get_connection(destination)

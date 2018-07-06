@@ -33,11 +33,9 @@ class EntryParser
    private
 
    def json_parse_entry(entry_str)
-      begin
-         return JSON.parse entry_str
-      rescue
-         return nil
-      end
+      return JSON.parse entry_str
+   rescue
+      return nil
    end
 
    def get_log_version(json_object)

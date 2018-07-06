@@ -8,3 +8,6 @@ Layout/IndentationWidth:
 
 Style/RedundantReturn:
   Enabled: false
+
+Style/ClassVars:
+  Enabled: false

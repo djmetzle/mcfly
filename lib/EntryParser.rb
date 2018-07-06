@@ -9,13 +9,11 @@ class EntryParser
    }.freeze
 
    def parse(entry)
-      unless entry.is_a? String
-         raise ArgumentError
-      end
+      raise ArgumentError unless entry.is_a? String
+
       json_object = json_parse_entry entry
-      unless json_object
-         raise RuntimeError, 'Bad JSON Entry provided'
-      end
+
+      raise RuntimeError, 'Bad JSON Entry provided' unless json_object
 
       version = get_log_version json_object
 
@@ -46,10 +44,10 @@ class EntryParser
       unless json_object.is_a? Array
          raise RuntimeError, 'Bad JSON Entry provided'
       end
+
       version_str = json_object[0]
-      unless version_str
-         raise RuntimeError, 'Bad JSON Entry provided'
-      end
+
+      raise RuntimeError, 'Bad JSON Entry provided' unless version_str
       unless FORMAT_LOOKUP.has_key? version_str
          raise RuntimeError, 'Bad JSON Entry provided'
       end

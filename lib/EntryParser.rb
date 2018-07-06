@@ -25,7 +25,7 @@ class EntryParser
       return nil unless dest_matches
 
       dest_host, dest_port = dest_matches.captures
-      return nil unless dest_host and dest_port
+      return nil unless dest_host && dest_port
 
       return "#{dest_host}:#{dest_port}"
    end

@@ -58,7 +58,6 @@ class EntryParser
       end
    end
 
-
    def parse_v2_entry(json_object, entry_str)
       entry_obj = json_object[3]
 
@@ -71,8 +70,7 @@ class EntryParser
                        entry_key: entry_key,
                        entry_pool: entry_pool,
                        destination: destination,
-                       mcrouter_port: mcrouter_port
-                      )
+                       mcrouter_port: mcrouter_port)
    end
 
    def parse_v1_entry(json_object, entry_str)
@@ -80,4 +78,3 @@ class EntryParser
       # We don't actually _need_ to support v1 format
    end
 end
-

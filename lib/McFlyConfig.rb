@@ -4,7 +4,7 @@ class McFlyConfig
    attr_reader :delete_stream_directory
    attr_reader :use_v2_log_format
 
-   def initialize(delete_stream_directory) 
+   def initialize(delete_stream_directory)
       @delete_stream_directory = delete_stream_directory
       @use_v2_log_format = true
    end

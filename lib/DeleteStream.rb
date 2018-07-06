@@ -31,7 +31,7 @@ class DeleteStream
       new_directories = current_directories - @subdirectories.keys
       new_directories.each do |subdir|
          @subdirectories[subdir] =
-               DeleteDirectory.new @delete_stream_directory, subdir
+            DeleteDirectory.new @delete_stream_directory, subdir
       end
    end
 

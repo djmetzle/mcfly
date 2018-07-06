@@ -13,7 +13,7 @@ class EntryParser
 
       json_object = json_parse_entry entry
 
-      raise RuntimeError, 'Bad JSON Entry provided' unless json_object
+      raise 'Bad JSON Entry provided' unless json_object
 
       version = get_log_version json_object
 
@@ -42,14 +42,14 @@ class EntryParser
 
    def get_log_version(json_object)
       unless json_object.is_a? Array
-         raise RuntimeError, 'Bad JSON Entry provided'
+         raise 'Bad JSON Entry provided'
       end
 
       version_str = json_object[0]
 
-      raise RuntimeError, 'Bad JSON Entry provided' unless version_str
+      raise 'Bad JSON Entry provided' unless version_str
       unless FORMAT_LOOKUP.key? version_str
-         raise RuntimeError, 'Bad JSON Entry provided'
+         raise 'Bad JSON Entry provided'
       end
 
       return FORMAT_LOOKUP[version_str]

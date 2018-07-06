@@ -4,7 +4,7 @@ require 'DeleteStream'
 require 'EntryParser'
 
 class LogEngine
-   def initialize config, delete_queue
+   def initialize(config, delete_queue)
       @config = config
       @delete_queue = delete_queue
 
@@ -14,9 +14,7 @@ class LogEngine
    end
 
    def queue_delete_stream
-      unless @delete_stream.messages_available?
-         return false
-      end
+      return false unless @delete_stream.messages_available?
 
       while (next_line = @delete_stream.next_line)
          next_entry = @parser.parse next_line

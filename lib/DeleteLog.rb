@@ -1,5 +1,5 @@
 class DeleteLog
-   def initialize filepath
+   def initialize(filepath)
       @filepath = filepath
       check_file_exists
       open_fd
@@ -21,14 +21,13 @@ class DeleteLog
    end
 
    private
+
    def check_file_exists
-      unless File.exist? @filepath
-         raise "DeleteLog file doesn't exist"
-      end
+      return if File.exist? @filepath
+      raise 'DeleteLog file does not exist'
    end
 
    def open_fd
-      # STUB
-      @fd = open(@filepath, "r")
+      @fd = File.open(@filepath, 'r')
    end
 end

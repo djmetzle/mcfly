@@ -1,9 +1,28 @@
 AllCops:
   Exclude:
     - 'spec/*.rb'
+    - 'Guardfile'
+
+Bundler/OrderedGems:
+  Enabled: False
 
 Layout/IndentationWidth:
   Width: 3
 
 Style/RedundantReturn:
   Enabled: false
+
+Style/ClassVars:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Style/Documentation:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma

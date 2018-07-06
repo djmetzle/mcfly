@@ -1,19 +1,20 @@
-$:.unshift File.dirname(__FILE__)
+$LOAD_PATH.unshift File.dirname(__FILE__)
 require('McFlyConfig')
 require('DeleteQueue')
 require('LogEngine')
 require('DeleteIssuer')
+require('MemcachedConnector')
 
 class McFly
    attr_reader :config, :log_engine, :queue, :issuer
 
-   def initialize mcfly_config, connector_class="MemcachedConnector"
+   def initialize(mcfly_config, connector_class = MemcachedConnector)
       @config = mcfly_config
       @queue = DeleteQueue.new
       @connector_class = connector_class
    end
 
-   def run one_time=false
+   def run(one_time = false)
       startup
       loop do
          did_work = false
@@ -25,6 +26,7 @@ class McFly
    end
 
    private
+
    def startup
       @log_engine = LogEngine.new @config, @queue
       @issuer = DeleteIssuer.new @queue, @connector_class

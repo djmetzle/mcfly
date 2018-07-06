@@ -14,3 +14,6 @@ Style/ClassVars:
 
 Naming/AccessorMethodName:
   Enabled: false
+
+Style/SymbolArray:
+  EnforcedStyle: brackets

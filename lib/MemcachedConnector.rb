@@ -26,7 +26,7 @@ class MemcachedConnector
          no_block: false,
          buffer_requests: false,
          noreply: false,
-         binary_protocol: false
+         binary_protocol: false,
       }
       begin
          connection = Memcached.new destination, options

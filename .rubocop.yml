@@ -20,3 +20,6 @@ Style/SymbolArray:
 
 Style/Documentation:
   Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma

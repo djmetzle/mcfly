@@ -22,11 +22,11 @@ class MemcachedConnector
 
    def self.get_connection(destination)
       options = {
-         :show_backtraces => false,
-         :no_block => false,
-         :buffer_requests => false,
-         :noreply => false,
-         :binary_protocol => false
+         show_backtraces: false,
+         no_block: false,
+         buffer_requests: false,
+         noreply: false,
+         binary_protocol: false
       }
       begin
          connection = Memcached.new destination, options

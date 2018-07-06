@@ -28,7 +28,6 @@ class DeleteLog
    end
 
    def open_fd
-      # STUB
-      @fd = open(@filepath, 'r')
+      @fd = File.open(@filepath, 'r')
    end
 end

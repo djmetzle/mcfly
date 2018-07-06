@@ -2,7 +2,7 @@
 
 # McFly - McRouter Reliable Delete Stream Replay
 
-$:.unshift File.dirname(__FILE__)
+$LOAD_PATH.unshift File.dirname(__FILE__)
 require('lib/mcfly')
 
 path = ARGV.first

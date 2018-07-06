@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - 'spec/*.rb'
+    - 'Guardfile'
 
 Layout/IndentationWidth:
   Width: 3

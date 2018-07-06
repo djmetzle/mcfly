@@ -40,8 +40,7 @@ class DeleteStream
    end
 
    def check_directory_exists
-      unless Dir.exist? @delete_stream_directory
-         raise 'Delete Stream directory does not exist'
-      end
+      return if Dir.exist? @delete_stream_directory
+      raise 'Delete Stream directory does not exist'
    end
 end

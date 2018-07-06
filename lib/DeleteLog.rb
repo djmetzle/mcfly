@@ -23,9 +23,8 @@ class DeleteLog
    private
 
    def check_file_exists
-      unless File.exist? @filepath
-         raise 'DeleteLog file does not exist'
-      end
+      return if File.exist? @filepath
+      raise 'DeleteLog file does not exist'
    end
 
    def open_fd

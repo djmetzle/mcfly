@@ -11,21 +11,18 @@ class DebugLog
       end
 
       def log_start
-         if should_log? :notice
-            puts 'Start McFly'
-         end
+         return unless should_log? :notice
+         puts 'Start McFly'
       end
 
       def log_new_deletes
-         if should_log? :notice
-            puts 'Found new delete log entries!'
-         end
+         return unless should_log? :notice
+         puts 'Found new delete log entries!'
       end
 
       def log_delete(key, destination, found)
-         if should_log? :notice
-            puts "Key '#{key}' #{found} from '#{destination}'"
-         end
+         return unless should_log? :notice
+         puts "Key '#{key}' #{found} from '#{destination}'"
       end
 
       private

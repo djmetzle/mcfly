@@ -36,9 +36,8 @@ class DeleteDirectory
    end
 
    def check_directory_exists
-      unless Dir.exist? full_path
-         raise 'Delete Stream subdirectory does not exist'
-      end
+      return if Dir.exist? full_path
+      raise 'Delete Stream subdirectory does not exist'
    end
 
    def full_path

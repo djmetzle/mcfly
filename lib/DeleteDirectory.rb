@@ -10,28 +10,28 @@ class DeleteDirectory
 
    def messages_available?
       scan_files
-      return @log_files.any? { |_, delete_log|
+      return @log_files.any? do |_, delete_log|
          delete_log.messages_available?
-      }
+      end
    end
 
    def next_line
-      unread_files = @log_files.select { |_, delete_log|
+      unread_files = @log_files.select do |_, delete_log|
          delete_log.messages_available?
-      }.values
+      end.values
       return nil if unread_files.empty?
       return unread_files.first.next_line
    end
 
    private
    def scan_files
-      current_files = get_fs_files.sort.map { |file|
+      current_files = get_fs_files.sort.map do |file|
          file.split(File::SEPARATOR).last
-      }
+      end
       new_files = current_files - @log_files.keys
-      new_files.each { |filename|
+      new_files.each do |filename|
          @log_files[filename] = DeleteLog.new File.join(full_path(), filename)
-      }
+      end
    end
 
    def check_directory_exists

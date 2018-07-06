@@ -9,29 +9,29 @@ class DeleteStream
 
    def messages_available?
       update_subdirectories
-      return @subdirectories.any? { |_, subdir|
+      return @subdirectories.any? do |_, subdir|
          subdir.messages_available?
-      }
+      end
    end
 
    def next_line
-      unread_dirs = @subdirectories.select { |_, subdir|
+      unread_dirs = @subdirectories.select do |_, subdir|
          subdir.messages_available?
-      }.values
+      end.values
       return nil if unread_dirs.empty?
       return unread_dirs.first.next_line
    end
 
    private
    def update_subdirectories
-      current_directories = get_fs_subdirectories.sort.map { |subdir|
+      current_directories = get_fs_subdirectories.sort.map do |subdir|
          subdir.split(File::SEPARATOR).last
-      }
+      end
       new_directories = current_directories - @subdirectories.keys
-      new_directories.each { |subdir|
+      new_directories.each do |subdir|
          @subdirectories[subdir] =
                DeleteDirectory.new @delete_stream_directory, subdir
-      }
+      end
    end
 
    def get_fs_subdirectories

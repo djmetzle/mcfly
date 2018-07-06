@@ -29,6 +29,7 @@ class DebugLog
       end
 
       private
+
       def should_log? min_level
          current_level_index = LOG_LEVELS.find_index(@@log_level)
          min_level_index = LOG_LEVELS.find_index(min_level)

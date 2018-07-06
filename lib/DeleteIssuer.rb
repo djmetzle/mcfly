@@ -18,6 +18,7 @@ class DeleteIssuer
    end
 
    private
+
    def flush_destination destination
       connect_str = EntryParser.deserialize_destination destination
       connection = @connector_class.connect connect_str

@@ -21,6 +21,7 @@ class DeleteLog
    end
 
    private
+
    def check_file_exists
       unless File.exist? @filepath
          raise 'DeleteLog file does not exist'

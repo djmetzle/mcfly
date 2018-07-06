@@ -39,6 +39,7 @@ class MemcachedConnector
    end
 
    private
+
    def initialize connection, destination
       @connection = connection
       @destination = destination

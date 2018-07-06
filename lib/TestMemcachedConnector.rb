@@ -21,6 +21,7 @@ class TestMemcachedConnector
    end
 
    private
+
    # use the factory method please
    def initialize
       set_defaults

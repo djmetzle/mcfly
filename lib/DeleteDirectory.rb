@@ -24,6 +24,7 @@ class DeleteDirectory
    end
 
    private
+
    def scan_files
       current_files = get_fs_files.sort.map do |file|
          file.split(File::SEPARATOR).last

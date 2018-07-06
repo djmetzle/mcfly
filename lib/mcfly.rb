@@ -25,6 +25,7 @@ class McFly
    end
 
    private
+
    def startup
       @log_engine = LogEngine.new @config, @queue
       @issuer = DeleteIssuer.new @queue, @connector_class

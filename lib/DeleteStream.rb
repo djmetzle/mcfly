@@ -23,6 +23,7 @@ class DeleteStream
    end
 
    private
+
    def update_subdirectories
       current_directories = get_fs_subdirectories.sort.map do |subdir|
          subdir.split(File::SEPARATOR).last

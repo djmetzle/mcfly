@@ -33,6 +33,7 @@ class EntryParser
    end
 
    private
+
    def json_parse_entry entry_str
       begin
          return JSON.parse entry_str

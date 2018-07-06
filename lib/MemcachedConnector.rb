@@ -2,6 +2,14 @@ require 'McFlyConfig'
 require 'memcached'
 
 class MemcachedConnector
+   CONNECTION_OPTIONS = {
+      show_backtraces: false,
+      no_block: false,
+      buffer_requests: false,
+      noreply: false,
+      binary_protocol: false,
+   }.freeze
+
    def self.connect(destination)
       connection = get_connection destination
       return connection ? new(connection, destination) : nil
@@ -20,22 +28,13 @@ class MemcachedConnector
    end
 
    def self.get_connection(destination)
-      options = {
-         show_backtraces: false,
-         no_block: false,
-         buffer_requests: false,
-         noreply: false,
-         binary_protocol: false,
-      }
-      begin
-         connection = Memcached.new destination, options
-         # force the lazy connect
-         return nil unless connection.stats
-         return connection
-      # We expect the connection to Memcached to fail most of the time.
-      rescue # # rubocop:disable Style/RescueStandardError
-         return nil
-      end
+      connection = Memcached.new destination, CONNECTION_OPTIONS
+      # force the lazy connect
+      return nil unless connection.stats
+      return connection
+   # We expect the connection to Memcached to fail most of the time.
+   rescue # # rubocop:disable Style/RescueStandardError
+      return nil
    end
 
    private

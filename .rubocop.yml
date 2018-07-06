@@ -1,0 +1,6 @@
+AllCops:
+  Exclude:
+    - 'spec/*.rb'
+
+Layout/IndentationWidth:
+  Width: 3

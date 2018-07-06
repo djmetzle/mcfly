@@ -6,7 +6,7 @@ class EntryParser
    FORMAT_LOOKUP = {
       'AS1.0' => 1,
       'AS2.0' => 2,
-   }
+   }.freeze
 
    def parse(entry)
       unless entry.is_a? String

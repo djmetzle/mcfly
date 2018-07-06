@@ -1,5 +1,5 @@
 class DebugLog
-   LOG_LEVELS = [ :silent, :notice, :debug ]
+   LOG_LEVELS = [ :silent, :notice, :debug ].freeze
 
    # default
    @@log_level = :notice

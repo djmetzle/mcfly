@@ -1,7 +1,7 @@
 require 'DeleteDirectory'
 
 class DeleteStream
-   def initialize delete_stream_directory
+   def initialize(delete_stream_directory)
       @delete_stream_directory = delete_stream_directory
       @subdirectories = {}
       check_directory_exists

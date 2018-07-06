@@ -2,12 +2,12 @@ require 'McFlyConfig'
 require 'memcached'
 
 class MemcachedConnector
-   def self.connect destination
+   def self.connect(destination)
       connection = self.get_connection destination  
       return connection ? self.new(connection, destination) : nil
    end
 
-   def delete_key key
+   def delete_key(key)
       begin
          @connection.delete key
          DebugLog.log_delete key, @destination, :NotFound
@@ -20,7 +20,7 @@ class MemcachedConnector
       end
    end
 
-   def self.get_connection destination
+   def self.get_connection(destination)
       options = {
          :show_backtraces => false,
          :no_block => false,
@@ -40,7 +40,7 @@ class MemcachedConnector
 
    private
 
-   def initialize connection, destination
+   def initialize(connection, destination)
       @connection = connection
       @destination = destination
    end

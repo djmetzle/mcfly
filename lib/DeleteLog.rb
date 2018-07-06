@@ -1,5 +1,5 @@
 class DeleteLog
-   def initialize filepath
+   def initialize(filepath)
       @filepath = filepath
       check_file_exists
       open_fd

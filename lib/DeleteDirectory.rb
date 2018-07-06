@@ -1,7 +1,7 @@
 require 'DeleteLog'
 
 class DeleteDirectory
-   def initialize delete_stream_directory, subdirectory
+   def initialize(delete_stream_directory, subdirectory)
       @delete_stream_directory = delete_stream_directory
       @subdirectory = subdirectory
       @log_files = {}

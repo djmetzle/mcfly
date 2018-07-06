@@ -2,7 +2,7 @@ require 'DeleteQueue'
 require 'EntryParser'
 
 class DeleteIssuer
-   def initialize delete_queue, connector_class
+   def initialize(delete_queue, connector_class)
       @delete_queue = delete_queue
 
       require connector_class
@@ -19,14 +19,14 @@ class DeleteIssuer
 
    private
 
-   def flush_destination destination
+   def flush_destination(destination)
       connect_str = EntryParser.deserialize_destination destination
       connection = @connector_class.connect connect_str
       return false if connection.nil?
       return drain_queue destination, connection
    end
 
-   def drain_queue destination, connection
+   def drain_queue(destination, connection)
       did_work = false
       loop do
          next_entry = @delete_queue.peek destination

@@ -4,7 +4,7 @@ require 'DeleteStream'
 require 'EntryParser'
 
 class LogEngine
-   def initialize config, delete_queue
+   def initialize(config, delete_queue)
       @config = config
       @delete_queue = delete_queue
 

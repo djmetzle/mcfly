@@ -7,17 +7,17 @@ class DeleteQueue
       return @hashmap.reject { |_, queue| queue.empty? }.keys
    end
 
-   def push ip, delete
+   def push(ip, delete)
       @hashmap[ip] ||= []
       @hashmap[ip].push delete
       return
    end
 
-   def peek ip
+   def peek(ip)
       return @hashmap[ip].first
    end
 
-   def shift ip
+   def shift(ip)
       @hashmap[ip].shift
       return
    end

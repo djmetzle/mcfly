@@ -31,7 +31,7 @@ class DeleteDirectory
       end
       new_files = current_files - @log_files.keys
       new_files.each do |filename|
-         @log_files[filename] = DeleteLog.new File.join(full_path(), filename)
+         @log_files[filename] = DeleteLog.new File.join(full_path, filename)
       end
    end
 

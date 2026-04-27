@@ -20,7 +20,7 @@ class DeleteLog
    end
 
    def close_fd
-      @fd.close if @fd
+      @fd&.close
       @fd = nil if @fd.closed?
    end
 

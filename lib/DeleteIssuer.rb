@@ -23,6 +23,7 @@ class DeleteIssuer
       connect_str = EntryParser.deserialize_destination destination
       connection = @connector_class.connect connect_str
       return false if connection.nil?
+
       return drain_queue destination, connection
    end
 
@@ -36,6 +37,7 @@ class DeleteIssuer
          @delete_queue.shift destination if success
 
          break unless success
+
          did_work = true
       end
       return did_work

@@ -20,6 +20,7 @@ class DeleteDirectory
          delete_log.messages_available?
       end.values
       return nil if unread_files.empty?
+
       return unread_files.first.next_line
    end
 
@@ -37,6 +38,7 @@ class DeleteDirectory
 
    def check_directory_exists
       return if Dir.exist? full_path
+
       raise 'Delete Stream subdirectory does not exist'
    end
 

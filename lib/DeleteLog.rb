@@ -7,11 +7,13 @@ class DeleteLog
 
    def messages_available?
       return false unless @fd
+
       return !@fd.eof?
    end
 
    def next_line
       return false unless @fd
+
       return @fd.gets.chomp
    end
 
@@ -24,6 +26,7 @@ class DeleteLog
 
    def check_file_exists
       return if File.exist? @filepath
+
       raise 'DeleteLog file does not exist'
    end
 

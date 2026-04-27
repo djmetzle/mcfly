@@ -19,6 +19,9 @@ Style/ClassVars:
 Naming/AccessorMethodName:
   Enabled: false
 
+Naming/FileName:
+  Enabled: false
+
 Style/SymbolArray:
   EnforcedStyle: brackets
 

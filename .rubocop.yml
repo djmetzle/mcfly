@@ -1,4 +1,5 @@
 AllCops:
+  NewCops: enable
   Exclude:
     - 'spec/*.rb'
     - 'Guardfile'
@@ -16,6 +17,9 @@ Style/ClassVars:
   Enabled: false
 
 Naming/AccessorMethodName:
+  Enabled: false
+
+Naming/FileName:
   Enabled: false
 
 Style/SymbolArray:

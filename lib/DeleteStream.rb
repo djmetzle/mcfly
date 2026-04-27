@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'DeleteDirectory'
 
 class DeleteStream
@@ -19,6 +21,7 @@ class DeleteStream
          subdir.messages_available?
       end.values
       return nil if unread_dirs.empty?
+
       return unread_dirs.first.next_line
    end
 
@@ -41,6 +44,7 @@ class DeleteStream
 
    def check_directory_exists
       return if Dir.exist? @delete_stream_directory
+
       raise 'Delete Stream directory does not exist'
    end
 end

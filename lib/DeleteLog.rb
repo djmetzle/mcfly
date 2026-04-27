@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DeleteLog
    def initialize(filepath)
       @filepath = filepath
@@ -7,16 +9,18 @@ class DeleteLog
 
    def messages_available?
       return false unless @fd
+
       return !@fd.eof?
    end
 
    def next_line
       return false unless @fd
+
       return @fd.gets.chomp
    end
 
    def close_fd
-      @fd.close if @fd
+      @fd&.close
       @fd = nil if @fd.closed?
    end
 
@@ -24,6 +28,7 @@ class DeleteLog
 
    def check_file_exists
       return if File.exist? @filepath
+
       raise 'DeleteLog file does not exist'
    end
 

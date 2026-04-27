@@ -1,4 +1,5 @@
 #!/usr/bin/ruby -W1
+# frozen_string_literal: true
 
 # McFly - McRouter Reliable Delete Stream Replay
 

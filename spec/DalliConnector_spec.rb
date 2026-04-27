@@ -1,17 +1,17 @@
-require './lib/MemcachedConnector'
+require './lib/DalliConnector'
 
-describe "MemcachedConnector" do
+describe "DalliConnector" do
    describe "#connect" do
       it "returns nil on fail" do
-         expect(MemcachedConnector.connect "1.1.1.1:9999").to be_nil
+         expect(DalliConnector.connect "1.1.1.1:9999").to be_nil
       end
       it "return new self" do
-         expect(MemcachedConnector.connect "127.0.0.1:11211").to be_an_instance_of(MemcachedConnector)
+         expect(DalliConnector.connect "127.0.0.1:11211").to be_an_instance_of(DalliConnector)
       end
    end
 
    describe ".delete_key" do
-      let(:connector) { MemcachedConnector.connect "127.0.0.1:11211" }
+      let(:connector) { DalliConnector.connect "127.0.0.1:11211" }
       let(:connection) { connector.instance_variable_get(:@connection) }
 
       it "succeeds with key" do

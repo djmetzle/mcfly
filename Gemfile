@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 gem 'json', require: true
-gem 'memcached', require: true
+gem 'dalli', require: true
 
 gem 'rspec', require: false, group: :test
 gem 'guard-rspec', require: false, group: :test

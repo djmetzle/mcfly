@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'McFlyConfig'
 require 'DeleteQueue'
 require 'DeleteStream'
@@ -19,6 +21,7 @@ class LogEngine
       while (next_line = @delete_stream.next_line)
          next_entry = @parser.parse next_line
          break if next_entry.nil? # needed?
+
          @delete_queue.push next_entry.destination, next_entry
       end
       DebugLog.log_new_deletes

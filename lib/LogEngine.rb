@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'McFlyConfig'
 require 'DeleteQueue'
 require 'DeleteStream'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TestMemcachedConnector
    @@will_connect_setting = true
    @@will_delete_setting = true

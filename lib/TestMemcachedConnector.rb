@@ -9,8 +9,7 @@ class TestMemcachedConnector
       return @@will_connect_setting ? new : nil
    end
 
-   # This is a test class
-   def delete_key(_) # # rubocop:disable Naming/UncommunicativeMethodParamName
+   def delete_key(_)
       return @will_delete
    end
 
